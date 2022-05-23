@@ -1,0 +1,13 @@
+Host:
+  - IP: 10.203.1.182
+    Port: 22
+    User: root
+    Password: password
+  - IP: 10.203.1.196
+    Port: 22
+    User: root
+    Password: password
+
+Command:
+  - nmcli connection show
+  - ifconfig
