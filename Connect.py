@@ -33,9 +33,9 @@ def filter_data(keyword,data):
     processing_step2 = re.findall(r'\w{8}-\w{4}-\w{4}-\w{4}-\w{12}', processing_step1)[0]
     return processing_step2
 
-def test(keyword,data):
-    processing_step1 = re.findall(keyword, data)
-    return processing_step1
+# def test(keyword,data):
+#     processing_step1 = re.findall(keyword, data)
+#     return processing_step1
 
 # if __name__ == '__main__' :
 #     with open("新建文本文档.txt") as f :
