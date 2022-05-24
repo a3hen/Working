@@ -28,5 +28,5 @@ class Filter_operation :
 
 if __name__ == '__main__' :
     test = Filter_operation("test.yaml","ens192")
-    test.main()
+    test.Main()
 
