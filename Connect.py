@@ -30,9 +30,8 @@ class Ssh :
         return output_info
 
 def filter_data(keyword,data):
-    processing_step1 = re.findall(keyword+r'([\w\W]*)'+keyword, data)[0]
-    processing_step2 = re.findall(r'\w{8}-\w{4}-\w{4}-\w{4}-\w{12}', processing_step1)[0]
-    return processing_step2
+    processing = re.findall(r'(\w{8}-\w{4}-\w{4}-\w{4}-\w{12})  [\w\s]{1,8}  '+keyword,data)
+    return processing
 
 # def test(keyword,data):
 #     processing_step1 = re.findall(keyword, data)
