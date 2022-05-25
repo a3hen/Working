@@ -16,7 +16,6 @@ def filter_Operation(yaml_name,keyword) :
                     info_old = Connection.filter_data(keyword, info)
                     print(f'{host} 的筛选结果为：{info_old}')
                 else:
-                    print(result['Host'][i]["IP"]+"的ifconfig信息为：\n"+str(info))
                     print(f'{host} 的ifconfig信息为：{info}')
 
 if __name__ == '__main__' :
