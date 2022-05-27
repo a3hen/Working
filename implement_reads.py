@@ -7,7 +7,9 @@ import connection
 def filter_operation(keyword) :
 
     parser = argparse.ArgumentParser(description="输入yaml文件名")
-    parser.add_argument('-apply', '--yaml_name', type=str, help='yaml文件名')
+    subparser = parser.add_subparsers(help="子命令帮助")
+    parser_a = subparser.add_parser('apply',help="apply help")
+    parser_a.add_argument('yaml_name',type=str,help='yaml name')
     args = parser.parse_args()
     yaml_name = args.yaml_name
 
