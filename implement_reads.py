@@ -4,7 +4,7 @@ import yaml
 import connection
 
 
-def filter_Operation(keyword) :
+def filter_operation(keyword) :
 
     parser = argparse.ArgumentParser(description="输入yaml文件名")
     parser.add_argument('-apply', '--yaml_name', type=str, help='yaml文件名')
@@ -30,4 +30,4 @@ def filter_Operation(keyword) :
         test_SSH.close_connection()
 
 if __name__ == '__main__' :
-    filter_Operation("ens192")
+    filter_operation("ens192")
