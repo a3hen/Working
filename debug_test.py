@@ -283,7 +283,10 @@ def show(args):
     else:
         print("请指定节点")
 
-    print(show_tree_all(args.path))
+    if args.path :
+        print(show_tree_all(args.path))
+    else:
+        pass
 
 
 
@@ -304,12 +307,13 @@ def arg():
 
     args = parser.parse_args()
     args.func(args)
-
+    return args
 
 
 if __name__ == "__main__":
     worker = Console()
     path = worker.logfilepath   #此处path为yaml配置文件信息
+    args = arg()
 
     # 启动
     arg()
