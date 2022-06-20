@@ -7,7 +7,7 @@ import yaml
 import socket
 import argparse
 
-
+# 输入命令并返回命令执行的结果
 def exec_cmd(cmd, conn=None):
     if conn:
         result = conn.exec_cmd(cmd)
@@ -40,7 +40,6 @@ def exec_cmd(cmd, conn=None):
 def save_linbit_file(path, ssh_obj=None):
     cmd = f'journalctl -u linstor-controller | cat > {path}/linstor-controller.log'
     exec_cmd(cmd, ssh_obj)
-
 
 def save_drbd_file(path, ssh_obj=None):
     cmd = f'dmesg -T | grep	drbd | cat > {path}/drbd.log'
@@ -82,14 +81,13 @@ def mkdir(path, ssh_obj=None):
     if not bool(exec_cmd(f'[ -d {path} ] && echo True', ssh_obj)):
         exec_cmd(f"mkdir -p {path}", ssh_obj)
 
-
+# 通过scp的方式来传输日志文件
 def scp_file(file_source, file_target, ssh_obj=None):
     cmd = f"scp -r {file_source} {file_target}"
     exec_cmd(cmd, ssh_obj)
 
 
 class SSHConn(object):
-    # python3中已经实现默认加载object了
 
     def __init__(self, host, port=22, username=None, password=None, timeout=None):
         self._host = host
@@ -118,7 +116,7 @@ class SSHConn(object):
     def ssh_connect(self):
         self._connect()
         if not self.SSHConnection:
-                print('Connect retry for SAN switch "%s" ...' % self._host)
+            print('Connect retry for SAN switch "%s" ...' % self._host)
             self._connect()
 
     def exec_cmd(self, command):
@@ -185,10 +183,10 @@ class Connect():
         return ip
 
     def __new__(cls, *args, **kwargs):
-        if not hasattr(cls, '_instance'):  #如果“cls”对象没有“_instance”属性
-            Connect._instance = super().__new__(cls)   #将什么赋给_instance属性?此方法有父类吗?
-            Connect._instance.conf_file = ConfFile()   #Connect._instance.conf_file为ConfFile()类的对象
-            Connect._instance.cluster = Connect._instance.conf_file.cluster  #?????
+        if not hasattr(cls, '_instance'):
+            Connect._instance = super().__new__(cls)
+            Connect._instance.conf_file = ConfFile()
+            Connect._instance.cluster = Connect._instance.conf_file.cluster
             Connect.get_ssh_conn(Connect._instance)
         return Connect._instance
 
@@ -247,10 +245,49 @@ class Console:
     #         # print(f"node: {node['hostname']}")
     #         print(show_tree(self.logfiledir, ssh))
 
+    def collect_(args):
+        print("处理LINBIT的log")
+        worker.save_linbit_file()
+        print("处理DRBD的log")
+        worker.save_drbd_file()
+        print("处理CRM的log")
+        worker.save_crm_file()
+        print("处理结束")
+
+
+    def collect(args):
+        if not args.soft:
+            print("处理LINBIT的log")
+            worker.save_linbit_file()
+            print("处理DRBD的log")
+            worker.save_drbd_file()
+            print("处理CRM的log")
+            worker.save_crm_file()
+            print("处理结束")
+        else:
+            for soft in args.soft:
+                if soft == 'LINBIT':
+                    print("处理LINBIT的log")
+                    worker.save_linbit_file()
+                elif soft == 'DRBD':
+                    print("处理DRBD的log")
+                    worker.save_drbd_file()
+                elif soft == 'CRM':
+                    print("处理CRM的log")
+                    worker.save_crm_file()
+
+
+    def show(args):
+        if args.node:
+            print(show_tree(path, args.node, args.soft))
+        elif args.node is None and args.soft is None:
+            print(show_tree_all(path))
+        else:
+            print("请指定节点")
 
 if __name__ == "__main__":
     worker = Console()
-    path = worker.logfilepath
+    path = worker.logfilepath   #此处path为yaml配置文件信息
 
 
     def collect_(args):
