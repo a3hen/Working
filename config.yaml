@@ -1,4 +1,4 @@
-logfilepath:
+logfilepath: /home/logfile
 node:
 - hostname: test1
   port: 22

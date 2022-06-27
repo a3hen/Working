@@ -1,17 +1,22 @@
 # -*- coding: utf-8 -*-
 import argparse
 import math
+import re
 
+import yaml
 
-def get_yaml ():
+class test():
+    def __init__(self):
+        self.chuanchu = self.shengcheng()
 
-    parser = argparse.ArgumentParser(description="输入yaml文件名")
-    parser.add_argument('-apply','--yaml_name',type=str,help='yaml文件名')
-    args = parser.parse_args()
-    return args.yaml_name
+    def shengcheng(self):
+        print("sucess!")
 
+    def ceshi(self):
+        print(self.chuanchu)
 
-if __name__ == '__main__' :
-    print(get_yaml())
+a = test()
+a.ceshi()
+
 
 
